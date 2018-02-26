@@ -1,0 +1,87 @@
+#define OK 1
+#define ERROR 0
+#include<stdlib.h>
+#include<stdio.h>
+#include<malloc.h>
+typedef int status;
+typedef int ElemType;
+typedef struct LNode{
+ElemType data;
+struct LNode *next;
+}LNode,*LinkList;
+void CreatList(LinkList &L,int n)
+{
+int i;
+LNode *p,*q,*s;
+L=(LinkList)malloc(sizeof(LNode));
+L->next=NULL;
+for(i=0;i<n;++i){
+	s=(LinkList)malloc(sizeof(LNode));
+printf("请输入第%d个结点值：",i+1);
+scanf("%d",&s->data);
+p=L;
+q=L->next;
+while(q!=NULL&&(q->data)<(s->data))
+{p=q;
+q=q->next;
+}
+s->next=q;
+p->next=s;
+}
+}
+void Mergesort(LinkList &A,LinkList &B,LinkList &C)
+{
+LinkList pa,pb,pc;
+pa=A->next;
+pb=B->next;
+C=(LinkList)malloc(sizeof(LNode));
+C->next=NULL;
+pc=C;
+while(pa&&pb)
+{
+if(pa->data<=pb->data)
+{
+(pc->next)=(LinkList)malloc(sizeof(LNode));
+pc=pc->next;
+pc->data=pa->data;
+pa=pa->next;
+}
+else
+{
+	(pc->next)=(LinkList)malloc(sizeof(LNode));
+		pc=pc->next;
+	pc->data=pb->data;
+  pb=pb->next;
+}
+}
+pc->next=pa?pa:pb;
+free(B);
+}
+void OutputList(LinkList L)
+{
+LinkList p=L->next;
+while(p!=NULL)
+{
+printf("%d->",p->data);
+p=p->next;
+}
+printf("^\n");
+}
+void main(void)
+{
+LinkList La,Lb,Lc;
+ Lc=NULL;
+int na=5,nb=4;
+printf("(1)创建有序单链表A………\n");
+CreatList(La,na);
+printf("A链表的输出\n");
+OutputList(La);
+printf("(2)创建有序单链表B…………\n");
+CreatList(Lb,nb);
+printf("B链表输出：");
+OutputList(Lb);
+printf("(3)归并A,B到C，C链表仍有序…………\n");
+Mergesort(La,Lb,Lc);
+printf("C链表的输出：");
+OutputList(Lc);
+}

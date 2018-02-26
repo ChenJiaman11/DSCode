@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<malloc.h>
+
+#define OK 1
+#define ERROR 0
+typedef int Status;
+typedef struct{
+char *elem;
+int length;
+int listsize;
+}SqList;
+Status MergeSort(SqList A,SqList B,SqList C)
+{
+	int i,j,ia,ib,ic;
+	ia=ib=ic=0;
+	C.elem=(char*)malloc((A.listsize+B.listsize)*sizeof(char));
+	if(!C.elem)
+		return ERROR;
+	C.listsize=A.listsize+B.listsize;
+	while(ia<A.length&&ib<B.length)
+	{
+		if(A.elem[ia]<B.elem[ib])
+			C.elem[ic++]=A.elem[ia++];
+		else if(A.elem[ia]>B.elem[ib])
+			C.elem[ic++]=B.elem[ib++];
+		else{
+			C.elem[ic++]=A.elem[ia++];
+			ib++;
+		}
+
+}
+	for(j=ia;j<A.length;j++)
+		C.elem[ic++]=A.elem[j];
+	for(j=ib;j<B.length;j++)
+		C.elem[ic++]=B.elem[j];
+	C.length=ic;
+	printf("\n输出归并后的有序表C:\n");
+	for(i=0;i<C.length;i++)
+		printf("%c",C.elem[i]);
+	printf("\n");
+	free(C.elem);
+	return OK;
+}
+
+void main()
+{
+	int i;
+	SqList A={"145",3,3};
+	SqList B={"15689",5,5};
+	SqList C;
+
+	printf("\n输出顺序表A：\n");
+	for(i=0;i<A.length;i++)
+		printf("%c",A.elem[i]);
+	printf("\n输出顺序表B：\n");
+	for(i=0;i<B.length;i++)
+		printf("%c",B.elem[i]);
+	MergeSort(A,B,C);
+  }

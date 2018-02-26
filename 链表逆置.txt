@@ -1,0 +1,67 @@
+#include<stdio.h>
+#include<malloc.h>
+typedef struct LNode{
+char data;
+struct LNode *next;
+}LNode,*LinkList;
+void CreateList(LinkList &L)
+{
+	LinkList head,p,q;
+	L=(LinkList)malloc(sizeof(LNode));
+head=L;
+head->next=NULL;
+printf("请输入头结点的值:");
+scanf("%c",&head->data);
+q=head;
+int i;
+for(i=1;i<=6;++i)
+{
+	p=(LinkList)malloc(sizeof(LNode));
+	printf("请输入结点值:");
+	scanf("\n%c",&p->data);
+	p->next=NULL;
+	q->next=p;
+	q=p;
+}
+
+}
+void ConverseList(LinkList &L)
+{
+
+	LinkList p,q,head,r;
+	q=head=L;
+	r=p=head->next;
+while(p!=NULL)
+{
+	p=p->next;
+r->next=q;
+q=r;
+r=p;
+}
+L=q;
+head->next=NULL;
+}
+void OutputList(LinkList &L)
+{
+LinkList head,p;
+head=L;
+p=head;
+while(p!=NULL)
+{
+printf("%c ",p->data);
+p=p->next;
+}
+printf("\n");
+}
+void main()
+{
+	LinkList L;
+	CreateList(L);
+	printf("创建有n个结点的单链表,输出如下：\n");
+	OutputList(L);
+	printf("\n将链表逆置后，输出如下：\n");
+ConverseList(L);
+	OutputList(L);
+}
+
+    

@@ -1,0 +1,180 @@
+#include<stdio.h>
+
+#include<malloc.h>
+
+#include<stdlib.h>
+
+
+typedef struct BiTNode
+{
+	char data;
+
+	struct BiTNode *lchild;
+
+	struct  BiTNode *rchild;
+
+}BiTNode,*BiTree;
+
+
+void re_PreOrder(BiTree tree)
+
+{
+	if(tree!=NULL)
+	
+{
+		
+printf("%c",tree->data);
+
+re_PreOrder(tree->lchild);
+
+re_PreOrder(tree->rchild);
+
+	}
+
+}//先序遍历，递归方法
+
+void re_MidOrder(BiTNode *tree)
+
+{
+	if(tree != NULL)
+
+	{
+		
+re_MidOrder(tree->lchild);
+
+		printf("%c",tree->data);
+
+		re_MidOrder(tree->rchild);
+
+	}
+
+}//中序遍历，递归方法
+
+void re_PostOrder(BiTree tree)
+
+{
+	
+if(tree!=NULL)
+	
+{
+		
+re_PostOrder(tree->lchild);
+
+		re_PostOrder(tree->rchild);
+
+		printf("%c",tree->data);
+	
+}
+
+}//后序遍历，递归方法
+
+void CreateBiTree(BiTree &T)
+
+{
+	
+char ch;
+	
+scanf("\n%c",&ch);
+	
+if(ch=='#')
+		
+T=NULL;
+	
+else
+	
+{
+
+		
+T=(BiTree)malloc(sizeof(BiTNode));
+
+		if(!T)
+
+			
+exit(-1);
+
+		
+T->data=ch;
+
+		
+printf("\n请输入%c结点的左子结点（#表无）：",T->data);
+
+		
+CreateBiTree(T->lchild);
+
+		
+printf("请输入%c结点的右子结点（#表无）:",T->data);
+		
+CreateBiTree(T->rchild);
+
+	}
+}//先序遍历方式创建一棵二叉树
+
+void OutputBiTree(BiTree T)
+
+{
+	if(T!=NULL)
+	
+{
+		
+printf("%c",T->data);
+
+
+		
+if(T->lchild!=NULL||T->rchild!=NULL)
+
+{
+
+printf("（");
+
+OutputBiTree(T->lchild);
+
+if(T->lchild!=NULL)
+
+printf(",");
+
+OutputBiTree(T->rchild);
+
+printf(")");
+
+	}
+	
+}
+
+}//先序递归遍历方式输出括号表示的二叉树
+
+
+
+void main()
+
+{
+	
+BiTree proot;
+
+	
+proot=NULL;
+
+printf("请输入根结点元素（#表无）：");
+
+	
+CreateBiTree(proot);
+
+	
+printf("\n(1)二叉树创建成功，其括号表示格式输出：\n\t");
+
+	OutputBiTree(proot);
+
+
+	printf("\n（2）先序遍历。递归方法\n\t");
+
+	re_PreOrder(proot);
+
+	printf("(3)中序遍历，递归方法\n\t");
+
+	re_MidOrder(proot);
+
+
+	printf("（4）后序遍历，递归方法\n\t");
+	
+re_PostOrder(proot);
+
+}
