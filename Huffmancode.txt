@@ -1,0 +1,97 @@
+typedef struct BiTNode{
+char data;
+struct BiTNode *lchild;
+struct BiTNode *rchild;
+}BiTNode,*BiTree;
+typedef struct Stack{
+BiTNode *t;
+int flag;
+struct Stack *next;
+}Stack,*LinkStack;
+typedef struct QNode{
+BiTree t;
+struct QNode *next;
+}QNode,*QueuePtr;
+typedef struct{
+QueuePtr front;
+QueuePtr rear;
+}LinkQueue;
+void  Push(LinkStack &top,BiTree tree)
+{
+LinkStack p;
+p=(Stack*)malloc(sizeof(Stack));
+p->t=tree;
+p->next=top;
+top=p;
+}
+void Pop(LinkStack &top,BiTree &tree)
+{
+LInkStack p=pop;
+if(top==NULL)
+tree=NULL;
+else
+{
+tree=top->t;
+top=top->next;
+free(p);
+}
+}
+Status InitQueue(LinkQueue &Q)
+{
+Q.front=Q.rear=(QueuePtr)malloc(sizeof(QNode));
+if(!Q.front)
+return ERROR;
+Q.front->next=NULL;
+return OK;}
+Status EnQueue(LinkQueue &Q,BiTree e)
+{
+QueuePtr p;
+p=(QueuePtr)malloc(sizeof(Node));
+if(!p)
+return ERROR;
+p->t=e;
+p->next=NULL;
+Q.rear->next=p;
+Q.rear=p;
+return OK;
+}
+Status DeQueue(LinkQueue &Q,BiTree &e)
+{
+if(Q.rear==Q.front)
+return ERROR;
+p=Q.front->next;
+e=p->t;
+Q.front->next=p->next;
+if(Q.rear==p)
+Q.rear=Q.front;
+free(p);
+return OK;
+}
+void PreOrder(BiTree *tree)
+{
+if(tree!=NULL)
+{
+printf("%c",tree->data);
+PreOrder(tree->lchild);
+PreOrder(tree->rchild);
+}
+}
+void MidOrder(BiTNode *tree)
+{
+
+}
+void PostOrder(BiTree *tree)
+{
+if(tree！=NULL)
+PostOrder(tree->lchild);
+PostOrder(tree->rchild);
+printf("%c",tree->data);
+}
+void st_PreOrder(BiTNode *tree)
+{
+LinkStack top;
+top=NULL;
+while(tree!=NULL)
+{
+}
+ }
